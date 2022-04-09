@@ -29,7 +29,13 @@ class Post extends Model
     public static function find($slug) {
         // of all the blog posts, find the one with a slug that matches the one that was requested
 
-        return static::findAll()->firstWhere('slug', $slug);
+        $post = static::findAll()->firstWhere('slug', $slug);
+
+        if (! $post) {
+            throw new ModelNotFoundException();
+        }
+
+        return $post;
     }
     public static function findAll() {
         // Find all files in "posts" directory and put them into Collection
