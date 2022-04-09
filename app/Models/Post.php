@@ -36,19 +36,21 @@ class Post extends Model
         // then map over each item, parse them into document
         // then map again, make them into Post object
 
-        return collect(File::files(resource_path("posts/")))
-        ->map(function ($file) {
-            return YamlFrontMatter::parseFile($file);
-        })
-        ->map(function ($document){
-            return new Post(
-                $document->title,
-                $document->excerpt,
-                $document->date,
-                $document->body(),
-                $document->slug
-            );
-        })
-        ->sortByDesc('date');
+        return cache()->rememberForever('posts.all', function() {
+            return collect(File::files(resource_path("posts/")))
+                ->map(function ($file) {
+                    return YamlFrontMatter::parseFile($file);
+                })
+                ->map(function ($document){
+                    return new Post(
+                        $document->title,
+                        $document->excerpt,
+                        $document->date,
+                        $document->body(),
+                        $document->slug
+                    );
+                })
+                ->sortByDesc('date');
+        });
     }
 }
