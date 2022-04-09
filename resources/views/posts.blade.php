@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('content')
+<x-layout>
     @foreach ($posts as $post)
     <article>
         <a href="/post/{{ $post->slug }}">
@@ -12,4 +10,4 @@
         </div>
     </article>
     @endforeach
-@endsection
+</x-layout>
