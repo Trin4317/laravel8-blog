@@ -48,6 +48,7 @@ class Post extends Model
                 $document->body(),
                 $document->slug
             );
-        });
+        })
+        ->sortByDesc('date');
     }
 }
