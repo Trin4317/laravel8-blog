@@ -15,17 +15,18 @@ use App\Models\Post;
 */
 
 Route::get('/', function () {
+    // using all() method from Eloquent model to fetch all data
     return view('posts', [
-        'posts' => Post::findAll()
+        'posts' => Post::all()
     ]);
 });
 
-Route::get('post/{post}', function($slug) {
-    // find a post by its slug and pass it to a view called "post"
-    // $post = Post::find($slug);
+Route::get('post/{post}', function($id) {
+    // using findOrFail() method from Eloquent model
+    // instead of passing $slug, pass $id instead
 
     return view('post', [
-        'post' => Post::findOrFail($slug)
+        'post' => Post::findOrFail($id)
     ]);
 
 });
