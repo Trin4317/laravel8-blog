@@ -21,11 +21,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('post/{post:slug}', function(Post $post) {
+Route::get('post/{post}', function(Post $post) {
     // using route-model binding
     // binding a route key {post} to underlying Eloquent Post model
     // wildcard name MUST match variable name
-    // define a different key using {wildcard_name:different_key} syntax
+    // define a different route key by using getRouteKeyName() method in Post model
     // it equals to Post::where('slug', $post)->firstOrFail();
 
     return view('post', [
