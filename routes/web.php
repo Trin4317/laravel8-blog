@@ -36,7 +36,9 @@ Route::get('post/{post}', function(Post $post) {
 });
 
 Route::get('category/{category}', function (Category $category) {
-    // using all() method from Eloquent model to fetch all data
+    // using route-model binding
+    // binding a route key {category} to underlying Eloquent Category model
+    // using posts property to fetch all data from a single category
     return view('posts', [
         'posts' => $category->posts
     ]);
