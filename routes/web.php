@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,11 @@ Route::get('post/{post}', function(Post $post) {
         'post' => $post
     ]);
 
+});
+
+Route::get('category/{category}', function (Category $category) {
+    // using all() method from Eloquent model to fetch all data
+    return view('posts', [
+        'posts' => $category->posts
+    ]);
 });
