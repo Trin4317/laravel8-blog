@@ -22,4 +22,11 @@ class Post extends Model
         // does a post belong to a category? true
         return $this->belongsTo(Category::class);
     }
+
+    public function user()
+    {
+        // hasOne, hasMany, belongsTo, belongsToMany
+        // does a post belong to a user? true
+        return $this->belongsTo(User::class);
+    }
 }
