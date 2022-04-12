@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Models\Post;
 use App\Models\Category;
 
@@ -18,9 +16,6 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-    DB::listen(function ($query) {
-        logger($query->sql, $query->bindings);
-    });
     // using all() method from Eloquent model to fetch all data
     return view('posts', [
         'posts' => Post::all()
