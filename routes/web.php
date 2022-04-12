@@ -17,8 +17,20 @@ use App\Models\Category;
 
 Route::get('/', function () {
     // using all() method from Eloquent model to fetch all data
+
+    // introducing n+1 problem
+    // since Laravel lazy loads relationship between tables (Eloquent models)
+    // it will execute additional SQL query for each item in the loop if the item needs to fetch data from other table
+    // in this case, each post needs to fetch $post->category for posts view
+    // so if there are 50 posts it will execute SQL query 50 times!
+
+    // solving n+1 problem
+    // force Laravel to eager load any relationship that will be referenced later
+    // by doing that, each post will never need to fetch $post->category
+    // as the information about other tables is already preloaded
     return view('posts', [
-        'posts' => Post::all()
+        // parameter inside with is the property defined in Post model
+        'posts' => Post::with('category')->get()
     ]);
 });
 
