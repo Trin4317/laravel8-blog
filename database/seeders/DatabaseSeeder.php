@@ -17,6 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // instead of making new category everytime we make a new post
+        // create a limited amount of categories first
+        // then randomly pick one when we make a new post
+        $categories = ['Work', 'Personal', 'Hobby'];
+        foreach ($categories as $category) {
+            Category::factory()->create([
+                'name' => $category,
+                'slug' => strtolower($category)
+            ]);
+        };
+
         // create 10 new posts whenever we seed the database
         Post::factory(10)->create();
     }
