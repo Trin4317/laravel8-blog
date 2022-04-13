@@ -30,7 +30,8 @@ Route::get('/', function () {
     // as the information about other tables is already preloaded
     return view('posts', [
         // parameter inside with is the property defined in Post model
-        'posts' => Post::with('category')->get()
+        // using latest() method to sort by order of updated_at
+        'posts' => Post::latest()->with('category')->get()
     ]);
 });
 
