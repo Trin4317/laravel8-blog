@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,5 +55,14 @@ Route::get('category/{category}', function (Category $category) {
     // using posts property to fetch all data from a single category
     return view('posts', [
         'posts' => $category->posts
+    ]);
+});
+
+Route::get('authors/{author}', function (User $author) {
+    // using route-model binding
+    // binding a route key {author} to underlying Eloquent User model
+    // using posts property to fetch all data from a single author
+    return view('posts', [
+        'posts' => $author->posts
     ]);
 });
