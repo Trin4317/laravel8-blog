@@ -23,10 +23,12 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    // overwrite Model name to different name by explicit defining foreign key ('user_id')
+    // without defining foreign key, Laravel will try to match the post with author_id key instead
+    public function author()
     {
         // hasOne, hasMany, belongsTo, belongsToMany
         // does a post belong to a user? true
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

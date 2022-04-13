@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +22,17 @@ Route::get('/', function () {
     // introducing n+1 problem
     // since Laravel lazy loads relationship between tables (Eloquent models)
     // it will execute additional SQL query for each item in the loop if the item needs to fetch data from other table
-    // in this case, each post needs to fetch $post->category for posts view
-    // so if there are 50 posts it will execute SQL query 50 times!
+    // in this case, each post needs to fetch $post->category and $post->author for posts view
+    // so if there are 50 posts it will execute SQL query 50x2 times!
 
     // solving n+1 problem
     // force Laravel to eager load any relationship that will be referenced later
-    // by doing that, each post will never need to fetch $post->category
+    // by doing that, each post will never need to fetch $post->category and $post->author
     // as the information about other tables is already preloaded
     return view('posts', [
         // parameter inside with is the property defined in Post model
-        'posts' => Post::with('category')->get()
+        // using latest() method to sort by order of updated_at
+        'posts' => Post::latest()->with('category', 'author')->get()
     ]);
 });
 
@@ -53,5 +55,14 @@ Route::get('category/{category}', function (Category $category) {
     // using posts property to fetch all data from a single category
     return view('posts', [
         'posts' => $category->posts
+    ]);
+});
+
+Route::get('authors/{author}', function (User $author) {
+    // using route-model binding
+    // binding a route key {author} to underlying Eloquent User model
+    // using posts property to fetch all data from a single author
+    return view('posts', [
+        'posts' => $author->posts
     ]);
 });

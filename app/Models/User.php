@@ -42,6 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     // get all posts from a user
     public function posts()
     {
