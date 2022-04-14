@@ -49,7 +49,7 @@ Route::get('post/{post}', function(Post $post) {
 
 });
 
-Route::get('category/{category}', function (Category $category) {
+Route::get('categories/{category}', function (Category $category) {
     // using route-model binding
     // binding a route key {category} to underlying Eloquent Category model
     // using posts property to fetch all data from a single category
