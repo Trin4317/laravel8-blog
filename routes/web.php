@@ -32,7 +32,7 @@ Route::get('/', function () {
     return view('posts', [
         // parameter inside with is the property defined in Post model
         // using latest() method to sort by order of updated_at
-        'posts' => Post::latest()->with('category', 'author')->get()
+        'posts' => Post::latest()->get()
     ]);
 });
 
@@ -57,7 +57,7 @@ Route::get('categories/{category}', function (Category $category) {
     // solving n+1 when the data isnt fetched from the Class but Collection
     // using load method to eager load the relationship between Post model and others
     return view('posts', [
-        'posts' => $category->posts->load(['category', 'author'])
+        'posts' => $category->posts
     ]);
 });
 
@@ -66,6 +66,6 @@ Route::get('authors/{author}', function (User $author) {
     // binding a route key {author} to underlying Eloquent User model
     // using posts property to fetch all data from a single author
     return view('posts', [
-        'posts' => $author->posts->load(['category', 'author'])
+        'posts' => $author->posts
     ]);
 });

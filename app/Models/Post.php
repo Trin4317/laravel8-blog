@@ -11,6 +11,12 @@ class Post extends Model
 
     protected $fillable = ['category_id', 'title', 'slug', 'excerpt', 'body'];
 
+    // another option to eager load relationship between models is defining $with property
+    protected $with = ['category', 'author'];
+    // however this would mean everytime we load a post Laravel would preload the relationships too when it doesnt need
+    // to disable eager load in this case, use without(['category', 'author]) option
+    // eg. Post::without('author')->first()
+
     public function getRouteKeyName()
     {
         return 'slug';
