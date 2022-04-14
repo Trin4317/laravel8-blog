@@ -53,8 +53,11 @@ Route::get('category/{category}', function (Category $category) {
     // using route-model binding
     // binding a route key {category} to underlying Eloquent Category model
     // using posts property to fetch all data from a single category
+
+    // solving n+1 when the data isnt fetched from the Class but Collection
+    // using load method to eager load the relationship between Post model and others
     return view('posts', [
-        'posts' => $category->posts
+        'posts' => $category->posts->load(['category', 'author'])
     ]);
 });
 
@@ -63,6 +66,6 @@ Route::get('authors/{author}', function (User $author) {
     // binding a route key {author} to underlying Eloquent User model
     // using posts property to fetch all data from a single author
     return view('posts', [
-        'posts' => $author->posts
+        'posts' => $author->posts->load(['category', 'author'])
     ]);
 });
