@@ -59,7 +59,8 @@ Route::get('categories/{category}', function (Category $category) {
     // using load method to eager load the relationship between Post model and others
     return view('posts', [
         'posts' => $category->posts,
-        'categories' => Category::all()
+        'categories' => Category::all(),
+        'currentCategory' => $category
     ]);
 });
 
