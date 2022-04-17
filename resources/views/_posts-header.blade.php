@@ -34,7 +34,10 @@
                 <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-2 rounded-xl z-50" style="display:none">
                     @foreach ( $categories as $category)
                         <a href="/categories/{{ $category->slug }}"
-                            class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white"
+                            class="
+                                block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500
+                                hover:text-white focus:text-white
+                                {{ isset($currentCategory) && $currentCategory->is($category) ? 'bg-blue-500 text-white' : ''}}"
                         >{{ $category->name }}</a>
                     @endforeach
                 </div>
