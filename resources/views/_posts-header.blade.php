@@ -36,7 +36,7 @@
                 @endif
 
                 @foreach ( $categories as $category)
-                    <x-dropdown-item href="/categories/{{ $category->slug }}" :active="isset($currentCategory) && $currentCategory->is($category)">
+                    <x-dropdown-item href="/categories/{{ $category->slug }}" :active="request()->is('categories/' . $category->slug)">
                         {{ $category->name }}
                     </x-dropdown-item>
                 @endforeach
