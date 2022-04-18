@@ -35,7 +35,7 @@ Route::get('/', function () {
         'posts' => Post::latest()->get(),
         'categories' => Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('post/{post}', function(Post $post) {
     // using route-model binding
@@ -62,7 +62,7 @@ Route::get('categories/{category}', function (Category $category) {
         'categories' => Category::all(),
         'currentCategory' => $category
     ]);
-});
+})->name('category');
 
 Route::get('authors/{author}', function (User $author) {
     // using route-model binding
