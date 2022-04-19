@@ -25,13 +25,7 @@ class PostController extends Controller
 
     protected function getPosts()
     {
-        $posts = Post::latest();
-
-        if (request('search')) {
-            $posts->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-        }
-
-        return $posts->get();
+        // to use filter(), create a query scope in Post Eloquent model
+        return Post::latest()->filter()->get();
     }
 }

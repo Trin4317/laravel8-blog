@@ -22,6 +22,14 @@ class Post extends Model
         return 'slug';
     }
 
+    public function scopeFilter($query) // allow you to call Post::newQuery()->filter()
+    {
+        if (request('search')) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function category()
     {
         // hasOne, hasMany, belongsTo, belongsToMany
