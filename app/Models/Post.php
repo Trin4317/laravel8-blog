@@ -22,6 +22,19 @@ class Post extends Model
         return 'slug';
     }
 
+    // instead of regenerate request('search') in Post model
+    // we accept an array list of filters
+    public function scopeFilter($query, array $filters) // allow you to call Post::newQuery()->filter()
+    {
+        // instead of using if(), use query builder's when()
+        // $search = $filters['search']
+        $query->when($filters['search'] ?? false, function($query, $search) {  // null coalescing operator (??)
+                                                                                // equals to isset($filters['search']) ? $filters['search'] : false;
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' . $search . '%');
+        });
+    }
+
     public function category()
     {
         // hasOne, hasMany, belongsTo, belongsToMany
