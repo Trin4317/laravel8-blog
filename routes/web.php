@@ -17,22 +17,15 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    // using all() method from Eloquent model to fetch all data
-
-    // introducing n+1 problem
-    // since Laravel lazy loads relationship between tables (Eloquent models)
-    // it will execute additional SQL query for each item in the loop if the item needs to fetch data from other table
-    // in this case, each post needs to fetch $post->category and $post->author for posts view
-    // so if there are 50 posts it will execute SQL query 50x2 times!
-
-    // solving n+1 problem
-    // force Laravel to eager load any relationship that will be referenced later
-    // by doing that, each post will never need to fetch $post->category and $post->author
-    // as the information about other tables is already preloaded
+    // fetch all the posts first
+    $posts = Post::latest();
+    // if there's query string for 'search' key, find the posts match the value
+    if (request('search')) {
+        $posts->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+    }
     return view('posts', [
-        // parameter inside with is the property defined in Post model
-        // using latest() method to sort by order of updated_at
-        'posts' => Post::latest()->get(),
+        'posts' => $posts->get(),
         'categories' => Category::all()
     ]);
 })->name('home');
