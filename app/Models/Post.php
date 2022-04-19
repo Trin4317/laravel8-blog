@@ -22,11 +22,14 @@ class Post extends Model
         return 'slug';
     }
 
-    public function scopeFilter($query) // allow you to call Post::newQuery()->filter()
+    // instead of regenerate request('search') in Post model
+    // we accept an array list of filters
+    public function scopeFilter($query, array $filters) // allow you to call Post::newQuery()->filter()
     {
-        if (request('search')) {
-            $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
+        if ($filters['search'] ?? false) {      // null coalescing operator (??)
+                                                // equals to isset($filters['search']) ? $filters['search'] : false;
+            $query->where('title', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('body', 'like', '%' . $filters['search'] . '%');
         }
     }
 
