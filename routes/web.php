@@ -26,7 +26,6 @@ Route::get('authors/{author}', function (User $author) {
     // binding a route key {author} to underlying Eloquent User model
     // using posts property to fetch all data from a single author
     return view('posts', [
-        'posts' => $author->posts,
-        'categories' => Category::all()
+        'posts' => $author->posts
     ]);
 });
