@@ -34,12 +34,13 @@ class Post extends Model
                 ->orWhere('body', 'like', '%' . $search . '%');
         });
 
-        $query->when($filters['category'] ?? false, fn($query, $category) =>  // null coalescing operator (??)
-            $query->whereExists(fn($query) =>
-            $query->from('categories')
-                ->whereColumn('categories.id', 'posts.category_id') // where() would return "where categories.id = 'posts.category_id'" instead
-                ->where('categories.slug', $category))
-        );
+        $query->when($filters['category'] ?? false, function($query, $category) {
+            $query->whereHas('category', function($query) use ($category) {
+                $query->where('slug', $category);
+            });
+            // using arrow function would reduce the need of use ($category)
+            // $query->whereHas('category', fn($query) => $query->where('slug', $category));
+        });
     }
 
     public function category()
