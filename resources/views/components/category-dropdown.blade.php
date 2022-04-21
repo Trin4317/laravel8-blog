@@ -13,8 +13,13 @@
     @endif
 
     @foreach ( $categories as $category)
-        <x-dropdown-item href="?category={{ $category->slug }}" :active="$category->is($currentCategory)">
-            {{ $category->name }}
+        <x-dropdown-item
+            {{-- if the current URL has query string other than "category"
+                then include it to the link for each category
+                to filter multiple values --}}
+            href="?category={{ $category->slug }}&{{ http_build_query(request()->except('category')) }}"
+            :active="$category->is($currentCategory)"
+        >{{ $category->name }}
         </x-dropdown-item>
     @endforeach
 </x-dropdown>
