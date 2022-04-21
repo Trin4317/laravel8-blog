@@ -25,7 +25,7 @@ Route::get('authors/{author}', function (User $author) {
     // using route-model binding
     // binding a route key {author} to underlying Eloquent User model
     // using posts property to fetch all data from a single author
-    return view('posts', [
+    return view('posts.index', [
         'posts' => $author->posts
     ]);
 });
