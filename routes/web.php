@@ -20,12 +20,3 @@ use App\Http\Controllers\PostController;
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('post/{post}', [PostController::class, 'show']);
-
-Route::get('authors/{author}', function (User $author) {
-    // using route-model binding
-    // binding a route key {author} to underlying Eloquent User model
-    // using posts property to fetch all data from a single author
-    return view('posts.index', [
-        'posts' => $author->posts
-    ]);
-});
