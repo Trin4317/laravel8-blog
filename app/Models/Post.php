@@ -30,8 +30,11 @@ class Post extends Model
         // $search = $filters['search']
         $query->when($filters['search'] ?? false, function($query, $search) {  // null coalescing operator (??)
                                                                                 // equals to isset($filters['search']) ? $filters['search'] : false;
-            $query->where('title', 'like', '%' . $search . '%')
-                ->orWhere('body', 'like', '%' . $search . '%');
+            $query->where(fn($query) =>
+                // group up the OR condition
+                // eg: WHERE ( `title` like '%doloribus%' or `body` like '%doloribus%' ) and EXISTS ( SELECT * FROM `categories` WHERE `posts`.`category_id` = `categories`.`id` and `slug` = 'work' )
+                $query->where('title', 'like', '%' . $search . '%')
+                        ->orWhere('body', 'like', '%' . $search . '%'));
         });
 
         $query->when($filters['category'] ?? false, function($query, $category) {
