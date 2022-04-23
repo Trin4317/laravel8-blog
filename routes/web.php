@@ -23,3 +23,5 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('post/{post}', [PostController::class, 'show']);
 
 Route::get('register', [RegisterController::class, 'create']);
+
+Route::post('register', [RegisterController::class, 'store']);
