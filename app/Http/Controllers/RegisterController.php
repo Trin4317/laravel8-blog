@@ -27,6 +27,9 @@ class RegisterController extends Controller
 
         User::create($attributes);
 
+        // flash method will store data in current session for the subsequent HTTP request and delete it after
+        session()->flash('success', 'Your account has been created.');
+
         return redirect('/');
     }
 }
