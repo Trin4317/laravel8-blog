@@ -18,7 +18,9 @@ class RegisterController extends Controller
         // and populate an error variable with associated validation errors
         $attributes = request()->validate([
             'name' => 'required|max:255',
-            'username' => 'required|max:255|min:3',
+            'username' => 'required|max:255|min:3|unique:users,username', // unique:[table],[column]
+            // in case we need to add more complex logic for unique rule
+            // 'username' => ['required', 'min:3', 'max:255', Rule::unique('users', 'username')->ignore($request->user()->id)],
             'email' => 'required|email|max:255',
             'password' => 'required|max:255|min:7' // or ['required', 'min:7', 'max:255']
         ]);
