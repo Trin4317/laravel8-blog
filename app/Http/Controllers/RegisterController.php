@@ -14,6 +14,8 @@ class RegisterController extends Controller
 
     public function store()
     {
+        // if the validation fails, Laravel will redirect to the previous page
+        // and populate an error variable with associated validation errors
         $attributes = request()->validate([
             'name' => 'required|max:255',
             'username' => 'required|max:255|min:3',
