@@ -43,6 +43,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // using Eloquent mutator to ensure that passwords are always hashed before being persisted
+    // must use convention: set[AttributeName]Attribute
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    // opposite of Eloquent mutator is accessor
+    // public function getUsernameAttribute($username)
+    // {
+    //     return ucwords($username);
+    // }
+
     public function getRouteKeyName()
     {
         return 'username';
