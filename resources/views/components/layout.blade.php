@@ -16,9 +16,11 @@
             </div>
 
             <div class="mt-8 md:mt-0">
-                @guest {{-- equals to @unless (auth()->check())  --}}
+                @auth
+                    <span class="text-xs font-bold uppercase">Welcome back, {{ auth()->user()->name }}!</span>
+                @else
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
-                @endguest
+                @endauth
 
                 <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
