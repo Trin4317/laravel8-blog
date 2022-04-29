@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
@@ -30,12 +31,9 @@ class SessionController extends Controller
         }
 
         // in case auth failed
-
-        return back()
-            // keep the user input data
-            ->withInput()
-            // manually set the error message with 'email' key
-            ->withErrors(['email' => 'Your provided credentials could not be verified.']);
+        throw ValidationException::withMessages([
+            'email' => 'Your provided credentials could not be verified.'
+        ]);
     }
 
     public function destroy()
