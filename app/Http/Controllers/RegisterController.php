@@ -25,7 +25,10 @@ class RegisterController extends Controller
             'password' => 'required|max:255|min:7' // or ['required', 'min:7', 'max:255']
         ]);
 
-        User::create($attributes);
+        $user = User::create($attributes);
+
+        // log the user in
+        auth()->login($user);
 
         // flash method will store data in current session for the subsequent HTTP request and delete it after
         // session()->flash('success', 'Your account has been created.');

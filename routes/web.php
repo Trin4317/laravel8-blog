@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,9 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('post/{post}', [PostController::class, 'show']);
 
-Route::get('register', [RegisterController::class, 'create']);
+// inspect the request with middleware logic before hitting the controller
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 
-Route::post('register', [RegisterController::class, 'store']);
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
