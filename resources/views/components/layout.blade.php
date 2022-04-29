@@ -16,7 +16,9 @@
             </div>
 
             <div class="mt-8 md:mt-0">
-                <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                @guest {{-- equals to @unless (auth()->check())  --}}
+                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                @endguest
 
                 <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
