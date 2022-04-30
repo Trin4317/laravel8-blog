@@ -65,4 +65,9 @@ class Post extends Model
         // does a post belong to a user? true
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
