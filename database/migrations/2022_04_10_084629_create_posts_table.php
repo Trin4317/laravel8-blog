@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->foreignId('category_id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // remove the posts from deleted user
             $table->string('title');
             $table->text('excerpt');
             $table->text('body');
