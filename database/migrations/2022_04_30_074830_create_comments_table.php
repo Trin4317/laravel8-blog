@@ -19,6 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('body');
             $table->timestamps();
+
+            // declare constraint for foreign keys
+            // if an id from Post model is deleted, remove all the comments associated with that id
+            $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
         });
     }
 
