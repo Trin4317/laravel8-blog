@@ -26,6 +26,9 @@ class SessionController extends Controller
             // if user provides the correct credentials
             // then attemp() will also log user in
 
+            // handle session fixation attack by regenerate the user's session
+            session()->regenerate();
+
             // redirect with a success flash message
             return redirect('/')->with('success', 'Welcome back!');
         }
