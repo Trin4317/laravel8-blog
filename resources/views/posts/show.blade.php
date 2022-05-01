@@ -70,7 +70,12 @@
                                             placeholder="Say something!"
                                             cols="30"
                                             rows="10"
+                                            required
                                         ></textarea>
+
+                                        @error('body')
+                                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="flex justify-end mt-4 pt-4 border-t border-gray-200">
