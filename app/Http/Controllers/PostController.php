@@ -23,4 +23,7 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
+
+    // 7 default CRUD actions
+    // index, show, create, store, edit, update, destroy
 }
