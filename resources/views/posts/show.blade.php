@@ -53,7 +53,7 @@
 
                     <section class="col-span-8 col-start-5 mt-10 space-y-6">
                         <x-panel>
-                            <form method="POST" action="">
+                            <form method="POST" action="/post/{{ $post->slug }}/comment">
                                 @csrf
 
                                 <header class="flex items-center">
@@ -63,7 +63,13 @@
                                 </header>
 
                                 <div class="mt-4">
-                                    <textarea name="body" id="" class="w-full text-sm focus:outline-none focus:ring border border-gray-200" placeholder="Say something!" cols="30" rows="10"></textarea>
+                                    <textarea
+                                        name="body"
+                                        class="w-full text-sm focus:outline-none focus:ring border border-gray-200"
+                                        placeholder="Say something!"
+                                        cols="30"
+                                        rows="10"
+                                    ></textarea>
                                 </div>
 
                                 <div class="flex justify-end mt-4 pt-4 border-t border-gray-200">
