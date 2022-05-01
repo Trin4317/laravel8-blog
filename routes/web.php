@@ -36,3 +36,29 @@ Route::get('login', [SessionController::class, 'create'])->middleware('guest');
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::post('newsletter', function () {
+    request()->validate([
+        'email' => 'required|email'
+    ]);
+
+    $client = new MailchimpMarketing\ApiClient();
+    $client->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => config('services.mailchimp.server'),
+    ]);
+
+    try {
+        $response = $client->lists->addListMember(config('services.mailchimp.list'), [
+            'email_address' => request('email'),
+            'status' => 'subscribed'
+        ]);
+    } catch (\Exception $e) {
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'This email could not be added to our newsletter list.'
+        ]);
+    };
+
+    return redirect('/')->with('success', 'You are now signed up for our newsletter');
+
+});
