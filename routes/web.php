@@ -39,14 +39,12 @@ Route::post('sessions', [SessionController::class, 'store'])->middleware('guest'
 
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
 
-Route::post('newsletter', function () {
+Route::post('newsletter', function (Newsletter $newsletter) { // dependency injection
     request()->validate([
         'email' => 'required|email'
     ]);
 
     try {
-        $newsletter = new Newsletter();
-
         $newsletter->subscribe(request('email'));
     } catch (Exception $e) {
         throw ValidationException::withMessages([
