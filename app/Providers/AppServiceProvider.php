@@ -5,7 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Services\Newsletter;
+use MailchimpMarketing\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // bind Newsletter class to ApiClient and $foo value
+        $this->app->bind(Newsletter::class, function() {
+            return new Newsletter(
+                new ApiClient(),
+                'bar'
+            );
+        });
     }
 
     /**

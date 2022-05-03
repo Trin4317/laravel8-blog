@@ -6,11 +6,11 @@ use MailchimpMarketing\ApiClient;
 
 class newsletter
 {
-    public function __construct(protected ApiClient $client) // dependency injection
-                                                    // which means when instantiate Newsletter we also need ApiClient dependency
-                                                    // Laravel will call 'new Newsletter(new ApiClient)' behind the scene
+    public function __construct(protected ApiClient $client, protected string $foo) // dependency injection
+                                                    // in case dependency requires a specific value that Laravel can't solve by itself
+                                                    // we need to be explicit about how to instantiate Newsletter in Service Provider
     {
-        // $this->client will be available when calling Newsletter
+        // $this->client and $this->foo will be available after instantiated
     }
 
     public function subscribe(string $email, string $list = null)

@@ -11,7 +11,8 @@ class NewsletterController extends Controller
     // single action controller
     public function __invoke(Newsletter $newsletter) // Concept: automatic resolution of dependency
                                                     // first Laravel checks Service Container
-                                                    // but there is no Newsletter dependency so Laravel will try to create one
+                                                    // there is Newsletter binding there so Laravel will resolve it the way it was defined
+                                                    // newsletter route -> NewsletterController __invoke -> AppServiceProvider register -> Newsletter __construct
     {
         request()->validate([
             'email' => 'required|email'
