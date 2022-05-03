@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id', 'title', 'slug', 'excerpt', 'body'];
+    protected $fillable = ['user_id', 'category_id', 'title', 'slug', 'excerpt', 'body'];
 
     // another option to eager load relationship between models is defining $with property
     protected $with = ['category', 'author'];
