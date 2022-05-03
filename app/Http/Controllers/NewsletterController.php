@@ -9,7 +9,9 @@ use Illuminate\Validation\ValidationException;
 class NewsletterController extends Controller
 {
     // single action controller
-    public function __invoke(Newsletter $newsletter)
+    public function __invoke(Newsletter $newsletter) // Concept: automatic resolution of dependency
+                                                    // first Laravel checks Service Container
+                                                    // but there is no Newsletter dependency so Laravel will try to create one
     {
         request()->validate([
             'email' => 'required|email'
