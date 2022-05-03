@@ -40,9 +40,11 @@ class PostController extends Controller
             'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
 
-        $attributes['user_id'] = auth()->id();
+        // $attributes['user_id'] = auth()->id();
+        // Post::create($attributes);
 
-        Post::create($attributes);
+        // another option to include user_id through Eloquent relationship
+        auth()->user()->posts()->create($attributes);
 
         return redirect('/');
     }
