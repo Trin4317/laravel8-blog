@@ -4,13 +4,11 @@ namespace App\Services;
 
 use MailchimpMarketing\ApiClient;
 
-class newsletter
+class Newsletter
 {
-    public function __construct(protected ApiClient $client, protected string $foo) // dependency injection
-                                                    // in case dependency requires a specific value that Laravel can't solve by itself
-                                                    // we need to be explicit about how to instantiate Newsletter in Service Provider
+    public function __construct(protected ApiClient $client) // dependency injection
     {
-        // $this->client and $this->foo will be available after instantiated
+        // $this->client will be available after instantiated
     }
 
     public function subscribe(string $email, string $list = null)
@@ -19,17 +17,9 @@ class newsletter
         // equivalent to $list = isset($list) ? $list : config();
         $list ??= config('services.mailchimp.list');
 
-        return $this->client()->lists->addListMember($list, [
+        return $this->client->lists->addListMember($list, [
             'email_address' => $email,
             'status' => 'subscribed'
-        ]);
-    }
-
-    protected function client()
-    {
-        return $this->client->setConfig([
-            'apiKey' => config('services.mailchimp.key'),
-            'server' => config('services.mailchimp.server'),
         ]);
     }
 }
