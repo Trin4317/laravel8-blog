@@ -24,6 +24,11 @@ class PostController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('posts.create');
+    }
+
     // 7 default CRUD actions
     // index, show, create, store, edit, update, destroy
 }
