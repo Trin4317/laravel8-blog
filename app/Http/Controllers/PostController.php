@@ -24,6 +24,17 @@ class PostController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        if (auth()->guest()) {
+            abort(403);
+        };
+        if (auth()->user()->username !== 'ollei'){
+            abort(403);
+        }
+        return view('posts.create');
+    }
+
     // 7 default CRUD actions
     // index, show, create, store, edit, update, destroy
 }
