@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\Newsletter;
+use App\Services\MailchimpNewsletter;
 use Illuminate\Validation\ValidationException;
 
 class NewsletterController extends Controller
 {
     // single action controller
-    public function __invoke(Newsletter $newsletter) // Concept: automatic resolution of dependency
+    public function __invoke(MailchimpNewsletter $newsletter) // Concept: automatic resolution of dependency
                                                     // first Laravel checks Service Container
                                                     // there is Newsletter binding there so Laravel will resolve it the way it was defined
                                                     // newsletter route -> NewsletterController __invoke -> AppServiceProvider register -> Newsletter __construct
