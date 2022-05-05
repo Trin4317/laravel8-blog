@@ -30,15 +30,16 @@
 
                         <x-dropdown-item href="/admin/dashboard">Dashboard</x-dropdown-item>
                         <x-dropdown-item href="/admin/post/create" :active="request()->is('admin/post/create')">Publish New Post</x-dropdown-item>
-                        <x-dropdown-item href="#">Log Out</x-dropdown-item>
+
+                        {{-- first declare alpine component with x-data
+                            listen for click event but prevent default action, which is href="#"
+                            find the logout-form and submit it --}}
+                        <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+
+                        <form id="logout-form" method="POST" action="/logout" class="hidden">
+                            @csrf
+                        </form>
                     </x-dropdown>
-
-
-                    <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-5">
-                        @csrf
-
-                        <button type="submit">Log Out</button>
-                    </form>
                 @else
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
                     <a href="/login" class="ml-5 text-xs font-bold uppercase">Log In</a>
