@@ -7,9 +7,10 @@
 
                     <form method="POST" action="/sessions" class="mt-10">
                         @csrf
-                        <x-form.input name="email" type="email"></x-form.input>
+                        {{-- autocomplete allows password manager to figure out which input is username or password --}}
+                        <x-form.input name="email" type="email" autocomplete="username"></x-form.input>
 
-                        <x-form.input name="password" type="password"></x-form.input>
+                        <x-form.input name="password" type="password" autocomplete="current-password"></x-form.input>
 
                         <x-form.button>Log In</x-form.button>
                     </form>
