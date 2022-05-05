@@ -35,6 +35,7 @@ class PostController extends Controller
         $attributes = request()->validate([
             'title' => 'required',
             'slug' => ['required', Rule::unique('posts', 'slug')],
+            'thumbnail' => 'required|image',
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')]
@@ -43,7 +44,8 @@ class PostController extends Controller
         // $attributes['user_id'] = auth()->id();
         // Post::create($attributes);
 
-        // another option to include user_id through Eloquent relationship
+        // return the path where the file was stored
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         auth()->user()->posts()->create($attributes);
 
         return redirect('/');
