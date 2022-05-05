@@ -4,7 +4,7 @@
             Publish New Post
         </h1>
         <x-panel>
-            <form method="POST" action="/admin/posts" class="mt-1" enctype="multipart/form-data">
+            <form method="POST" action="/admin/posts" enctype="multipart/form-data">
                 @csrf
 
                 <x-form.input name="title"></x-form.input>

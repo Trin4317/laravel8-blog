@@ -1,6 +1,6 @@
 @props(['name', 'type' => 'text'])
 
-<div class="mb-6">
+<x-form.field>
     <x-form.label name="{{ $name }}"></x-form.label>
 
     <input class="border border-gray-400 p-2 w-full"
@@ -11,4 +11,4 @@
         required>
 
     <x-form.error name="{{ $name }}"></x-form.error>
-</div>
+</x-form.label>
