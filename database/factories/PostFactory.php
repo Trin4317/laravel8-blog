@@ -19,6 +19,7 @@ class PostFactory extends Factory
     {
         return [
             'slug' => $this->faker->slug,
+            'thumbnail' => 'thumbnails/illustration-' . rand(1,5) . '.png',
             'user_id' => User::factory(),
             'category_id' => Category::all()->random()->id,
             'title' => $this->faker->sentence,
