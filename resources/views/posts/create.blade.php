@@ -17,11 +17,8 @@
 
                 <x-form.textarea name="body"></x-form.textarea>
 
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                        for="category_id">
-                        Category
-                    </label>
+                <x-form.field>
+                    <x-form.label name="category_id">Category</x-form.label>
 
                     <select name="category_id" id="category_id">
                         @foreach (\App\Models\Category::all() as $category)
@@ -32,10 +29,8 @@
                         @endforeach
                     </select>
 
-                    @error('category')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <x-form.error name="category_id"></x-form.error>
+                </x-form.field>
 
                 <x-submit-button>Publish</x-submit-button>
 
