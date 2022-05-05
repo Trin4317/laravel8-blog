@@ -1,7 +1,10 @@
 <x-layout>
-    <section class="px-6 py-8">
-        <x-panel class="max-w-sm mx-auto">
-            <form method="POST" action="/admin/posts" class="mt-10">
+    <section class="px-6 py-8 max-w-md mx-auto">
+        <h1 class="text-lg font-bold mb-4">
+            Publish New Post
+        </h1>
+        <x-panel>
+            <form method="POST" action="/admin/posts" class="mt-1">
                 @csrf
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
