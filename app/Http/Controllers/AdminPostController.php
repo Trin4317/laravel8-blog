@@ -24,9 +24,7 @@ class AdminPostController extends Controller
 
     public function store()
     {
-        $post = new Post();
-
-        $attributes = $this->validatePost($post);
+        $attributes = $this->validatePost();
 
         // return the path where the file was stored
         $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
@@ -71,8 +69,12 @@ class AdminPostController extends Controller
         return back()->with('success', 'Post Deleted!');
     }
 
-    protected function validatePost(Post $post)
+    // nullable type for $post parameter
+    protected function validatePost(?Post $post = null)
     {
+        // similar to $post = isset($post) ? $post : new Post();
+        $post ??= new Post();
+
         return request()->validate([
             'title' => 'required',
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
