@@ -7,11 +7,11 @@
             so Laravel could know that this is a PATCH request --}}
             @method('PATCH')
 
-            <x-form.input name="title" :value="old('title', $post->title)"></x-form.input>
+            <x-form.input name="title" required :value="old('title', $post->title)"></x-form.input>
                                         {{-- if there is any fail validation when updating the post
                                             then reuse recently value
                                             if none then use the original value --}}
-            <x-form.input name="slug" :value="old('slug', $post->slug)"></x-form.input>
+            <x-form.input name="slug" required :value="old('slug', $post->slug)"></x-form.input>
 
             <div class="flex mt-6">
                 <div class="flex-1">
