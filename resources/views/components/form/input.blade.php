@@ -7,10 +7,9 @@
         {{-- default type for input is text --}}
         name="{{ $name }}"
         id="{{ $name }}"
-        value="{{ old($name) }}"
-        required
-        {{-- accept all attributes without explicitly defining it in @props --}}
-        {{ $attributes }}
+        {{-- instead of hard coding value property to use old value
+            now we add it to attributes for manipulating when needed --}}
+        {{ $attributes(['value' => old($name)]) }}
     >
 
     <x-form.error name="{{ $name }}"></x-form.error>

@@ -28,8 +28,8 @@
                             <button class="text-xs font-bold uppercase">Welcome back, {{ auth()->user()->name }}!</button>
                         </x-slot>
 
-                        <x-dropdown-item href="/admin/dashboard">Dashboard</x-dropdown-item>
-                        <x-dropdown-item href="/admin/post/create" :active="request()->is('admin/post/create')">Publish New Post</x-dropdown-item>
+                        <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')">Dashboard</x-dropdown-item>
+                        <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">Publish New Post</x-dropdown-item>
 
                         {{-- first declare alpine component with x-data
                             listen for click event but prevent default action, which is href="#"

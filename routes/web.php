@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\RegisterController;
@@ -40,6 +41,14 @@ Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth')
 
 Route::post('newsletter', NewsletterController::class);
 
-Route::get('admin/post/create', [PostController::class, 'create'])->middleware('admin');
+Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin');
 
-Route::post('admin/posts', [PostController::class, 'store'])->middleware('admin');
+Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin');
+
+Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
+
+Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
+
+Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update'])->middleware('admin');
+
+Route::delete('admin/posts/{post:id}', [AdminPostController::class, 'destroy'])->middleware('admin');
