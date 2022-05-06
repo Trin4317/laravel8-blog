@@ -53,7 +53,7 @@
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button class="text-red-500 hover:text-red-600">Delete</button>
+                                                <button onclick="return confirm('The following post will be delete:\n\u2022 {{ $post->title }}')" class="text-red-500 hover:text-red-600">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

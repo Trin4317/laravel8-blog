@@ -1,4 +1,7 @@
 <x-layout>
+    {{-- when you pass the property to the child component, the value will be passed as it is
+        in case you need to pass the value dynamically, use colon in front of property
+        to tell Laravel to parse that correctly --}}
     <x-setting :heading="'Edit Post: ' . $post->title ">
         <form method="POST" action="/admin/posts/{{ $post->id }}" enctype="multipart/form-data">
             @csrf
