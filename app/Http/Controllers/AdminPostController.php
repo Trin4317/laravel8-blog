@@ -24,10 +24,13 @@ class AdminPostController extends Controller
 
     public function store()
     {
+        $post = new Post();
+
         $attributes = request()->validate([
             'title' => 'required',
-            'slug' => ['required', Rule::unique('posts', 'slug')],
-            'thumbnail' => 'required|image',
+            // since we are making new post, there is no self id to ignore, which means the rule still works as the same way
+            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
+            'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')]
@@ -57,7 +60,7 @@ class AdminPostController extends Controller
             // ignore current post or else validation would fail
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
             // post can be updated without changing thumbnail so it's not required
-            'thumbnail' => 'image',
+            'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')]
