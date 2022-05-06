@@ -48,4 +48,27 @@ class AdminPostController extends Controller
             'post' => $post
         ]);
     }
+
+    public function update(Post $post)
+    {
+        $attributes = request()->validate([
+            'title' => 'required',
+            // ignore current post or else validation would fail
+            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
+            // post can be updated without changing thumbnail so it's not required
+            'thumbnail' => 'image',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
+
+        // however if thumbnail is set then update the resource link to new thumbnail
+        if (isset($attributes['thumbnail'])) {
+            $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+        }
+
+        $post->update($attributes);
+
+        return back()->with('success', 'Post Updated!');
+    }
 }
