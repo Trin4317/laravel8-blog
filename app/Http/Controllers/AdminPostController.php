@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPostController extends Controller
 {
@@ -74,6 +75,12 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
+        // first delete the thumbnail attached to the post
+        if (Storage::exists($post->thumbnail)) {
+            Storage::delete($post->thumbnail);
+        }
+
+        // then delete the post
         $post->delete();
 
         return back()->with('success', 'Post Deleted!');
