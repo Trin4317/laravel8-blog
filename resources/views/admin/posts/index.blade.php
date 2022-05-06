@@ -53,6 +53,10 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="mt-5 px-1">
+                        {{ $posts->links() }}
+                    </div>
                 </div>
             </div>
         </div>
