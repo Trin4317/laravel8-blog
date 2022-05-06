@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\RegisterController;
@@ -39,6 +40,8 @@ Route::post('sessions', [SessionController::class, 'store'])->middleware('guest'
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 Route::post('newsletter', NewsletterController::class);
+
+Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin');
 
 Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
 
