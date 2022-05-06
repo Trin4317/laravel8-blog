@@ -24,13 +24,20 @@ class AdminPostController extends Controller
 
     public function store()
     {
-        $attributes = $this->validatePost();
+        // $attributes = $this->validatePost();
 
         // return the path where the file was stored
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+        // $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
         // create the post as the authenticated user
-        auth()->user()->posts()->create($attributes);
+        // auth()->user()->posts()->create($attributes);
+
+        $attributes = array_merge($this->validatePost(), [
+            'user_id' => request()->user()->id,
+            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
+        ]);
+
+        Post::create($attributes);
 
         return redirect('/');
     }
