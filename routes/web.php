@@ -50,3 +50,5 @@ Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('a
 Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
 
 Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update'])->middleware('admin');
+
+Route::delete('admin/posts/{post:id}', [AdminPostController::class, 'destroy'])->middleware('admin');
