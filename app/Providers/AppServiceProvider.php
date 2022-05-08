@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Newsletter;
 use App\Services\MailchimpNewsletter;
+use App\Models\User;
 use MailchimpMarketing\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
@@ -45,5 +47,17 @@ class AppServiceProvider extends ServiceProvider
         // disable all mass assignable restrictions
         // which means we don't have to provide $fillable or $guarded property for each Model
         // Model::unguard();
+
+        // Gate is for authorization, declares who can get to go through the gate and who can't
+        Gate::define('admin', function (User $user) {
+            return $user->username === 'ollei';
+        });
+            // multiple ways to use Gate
+            // return a boolean
+                // Gate::allows('admin'); OR
+                // request()->user()->can('admin'));
+            // OR return a 403 if not authorized
+                // $this->authorize('admin');
+
     }
 }
