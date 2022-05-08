@@ -41,14 +41,13 @@ Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth')
 
 Route::post('newsletter', NewsletterController::class);
 
-Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin');
-
-Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin');
-
-Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
-
-Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
-
-Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update'])->middleware('admin');
-
-Route::delete('admin/posts/{post:id}', [AdminPostController::class, 'destroy'])->middleware('admin');
+Route::middleware('can:admin')->group(function () {
+    // another way is using route resource to automatically list all routes with 7 CRUD actions
+    // Route::resource('admin/posts', AdminPostController::class)->except('show');
+    Route::get('admin/posts', [AdminPostController::class, 'index']);
+    Route::get('admin/posts/create', [AdminPostController::class, 'create']);
+    Route::post('admin/posts', [AdminPostController::class, 'store']);
+    Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit']);
+    Route::patch('admin/posts/{post:id}', [AdminPostController::class, 'update']);
+    Route::delete('admin/posts/{post:id}', [AdminPostController::class, 'destroy']);
+});
