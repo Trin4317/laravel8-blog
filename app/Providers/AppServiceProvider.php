@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Newsletter;
@@ -58,6 +59,13 @@ class AppServiceProvider extends ServiceProvider
                 // request()->user()->can('admin'));
             // OR return a 403 if not authorized
                 // $this->authorize('admin');
+
+        // create a custom Blade directive so we can use `@admin @endadmin` in blade template
+        // this will translate to @if (request()->user()?->can('admin'))
+        Blade::if('admin', function () {
+            return request()->user()?->can('admin'); // if the user is not signed in (without ? it will try to check can('admin') on null and throw an error)
+                                                    // OR the signing in user is not defined as admin then return false
+        });
 
     }
 }
