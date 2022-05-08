@@ -42,6 +42,8 @@ Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth')
 Route::post('newsletter', NewsletterController::class);
 
 Route::middleware('can:admin')->group(function () {
+    // another way is using route resource to automatically list all routes with 7 CRUD actions
+    // Route::resource('admin/posts', AdminPostController::class)->except('show');
     Route::get('admin/posts', [AdminPostController::class, 'index']);
     Route::get('admin/posts/create', [AdminPostController::class, 'create']);
     Route::post('admin/posts', [AdminPostController::class, 'store']);
