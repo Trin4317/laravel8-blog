@@ -24,21 +24,20 @@ class AdminPostController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate([
-            'title' => 'required',
-            'slug' => ['required', Rule::unique('posts', 'slug')],
-            'thumbnail' => 'required|image',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
-        ]);
-
-        // $attributes['user_id'] = auth()->id();
-        // Post::create($attributes);
+        // $attributes = $this->validatePost();
 
         // return the path where the file was stored
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
-        auth()->user()->posts()->create($attributes);
+        // $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+
+        // create the post as the authenticated user
+        // auth()->user()->posts()->create($attributes);
+
+        $attributes = array_merge($this->validatePost(), [
+            'user_id' => request()->user()->id,
+            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
+        ]);
+
+        Post::create($attributes);
 
         return redirect('/');
     }
@@ -52,16 +51,7 @@ class AdminPostController extends Controller
 
     public function update(Post $post)
     {
-        $attributes = request()->validate([
-            'title' => 'required',
-            // ignore current post or else validation would fail
-            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
-            // post can be updated without changing thumbnail so it's not required
-            'thumbnail' => 'image',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
-        ]);
+        $attributes = $this->validatePost($post);
 
         // however if thumbnail is set then update the resource link to new thumbnail
         if (isset($attributes['thumbnail'])) {
@@ -84,5 +74,21 @@ class AdminPostController extends Controller
         $post->delete();
 
         return back()->with('success', 'Post Deleted!');
+    }
+
+    // nullable type for $post parameter
+    protected function validatePost(?Post $post = null)
+    {
+        // similar to $post = isset($post) ? $post : new Post();
+        $post ??= new Post();
+
+        return request()->validate([
+            'title' => 'required',
+            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
+            'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
     }
 }
