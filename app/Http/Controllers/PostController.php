@@ -22,6 +22,10 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        if ($post->status !== 'PUBLISHED') {
+            abort(404);
+        }
+
         return view('posts.show', [
             'post' => $post
         ]);
