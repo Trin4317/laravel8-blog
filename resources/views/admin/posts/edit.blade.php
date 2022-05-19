@@ -43,7 +43,12 @@
                 <x-form.error name="category_id"></x-form.error>
             </x-form.field>
 
-            <x-form.button>Update</x-form.button>
+            <div class="flex mx-36 justify-around">
+                @if ($post->status === "DRAFT")
+                    <x-form.button name="status" value="DRAFT" option="draft">Save as Draft</x-form.button>
+                @endif
+                <x-form.button name="status" value="PUBLISHED">Update</x-form.button>
+            </div>
 
         </form>
     </x-setting>
