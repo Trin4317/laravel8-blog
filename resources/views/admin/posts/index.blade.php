@@ -38,9 +38,11 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                Published
-                                            </span>
+                                            @if ($post->status === 'DRAFT')
+                                                <x-post-status class="bg-yellow-100 text-yellow-800">In Draft</x-post-status>
+                                            @else
+                                                <x-post-status class="bg-green-100 text-green-800">Published</x-post-status>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $post->author->name }}
