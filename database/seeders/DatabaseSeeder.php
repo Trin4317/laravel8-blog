@@ -30,5 +30,7 @@ class DatabaseSeeder extends Seeder
 
         // create 10 new posts whenever we seed the database
         Post::factory(10)->create();
+        // and create 3 draft posts
+        Post::factory(3)->create(['status' => 'DRAFT']);
     }
 }
