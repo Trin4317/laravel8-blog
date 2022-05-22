@@ -9,9 +9,9 @@
 
             <x-form.input name="thumbnail" type="file" required></x-form.input>
 
-            <x-form.textarea name="excerpt"></x-form.textarea>
+            <x-form.textarea name="excerpt">{{ old('excerpt') }}</x-form.textarea>
 
-            <x-form.textarea name="body"></x-form.textarea>
+            <x-form.textarea name="body">{{ old('excerpt') }}</x-form.textarea>
 
             <x-form.field>
                 <x-form.label name="category_id">Category</x-form.label>
