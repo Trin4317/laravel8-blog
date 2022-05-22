@@ -43,6 +43,21 @@
                 <x-form.error name="category_id"></x-form.error>
             </x-form.field>
 
+            <x-form.field>
+                <x-form.label name="user_id">Author</x-form.label>
+
+                <select name="user_id" id="user_id">
+                    @foreach (\App\Models\User::all() as $author)
+                        <option
+                            value="{{ $author->id }}"
+                            {{ old('user_id', $post->user_id) == $author->id ? 'selected' : '' }}
+                        >{{ $author->name }}</option>
+                    @endforeach
+                </select>
+
+                <x-form.error name="user_id"></x-form.error>
+            </x-form.field>
+
             <div class="flex mx-36 justify-around">
                 @if ($post->status === "DRAFT")
                     <x-form.button name="status" value="DRAFT" option="draft">Save as Draft</x-form.button>
