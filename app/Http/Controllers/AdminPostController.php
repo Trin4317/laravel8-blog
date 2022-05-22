@@ -89,7 +89,9 @@ class AdminPostController extends Controller
             'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
             'excerpt' => 'required',
             'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            // user_id validation is only required when changing author in Edit mode
+            'user_id' => Rule::exists('users', 'id')
         ]);
     }
 }
