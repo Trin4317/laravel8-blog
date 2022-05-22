@@ -28,7 +28,10 @@
                 <x-form.error name="category_id"></x-form.error>
             </x-form.field>
 
-            <x-form.button>Publish</x-form.button>
+            <div class="flex mx-36 justify-around">
+                <x-form.button name="status" value="DRAFT" option="draft">Save as Draft</x-form.button>
+                <x-form.button name="status" value="PUBLISHED">Publish</x-form.button>
+            </div>
 
         </form>
     </x-setting>
