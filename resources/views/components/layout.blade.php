@@ -50,6 +50,10 @@
                 <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
                 </a>
+
+                <a href="/feed" class="ml-3">
+                    <img src="/images/rss-icon.svg" alt="Rss Logo" class="h-10 w-10 object-contain">
+                </a>
             </div>
         </nav>
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\RssFeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,8 @@ Route::post('sessions', [SessionController::class, 'store'])->middleware('guest'
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 Route::post('newsletter', NewsletterController::class);
+
+Route::get('feed', RssFeedController::class);
 
 Route::middleware('can:admin')->group(function () {
     // another way is using route resource to automatically list all routes with 7 CRUD actions
