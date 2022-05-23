@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // remove the posts from deleted user
             $table->string('title');
             $table->enum('status', ['PUBLISHED', 'DRAFT']);
+            $table->integer('total_views')->default(0);
             $table->string('thumbnail')->nullable();
             $table->text('excerpt');
             $table->text('body');
