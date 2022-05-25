@@ -68,4 +68,25 @@ class User extends Authenticatable
         // does a user have many posts? true
         return $this->hasMany(Post::class);
     }
+
+    // get all followers of a user
+    public function followers()
+    {
+        // a single followee has many followship
+        // a followship belongs to a specific follower
+        // hence a single followee will belong to many followers
+        // belongsToMany(class, relationship's intermediate table, foreign key name of the followee, foreign key name of the follower)
+        // since we create a Followship indirectly, timestamp should be explicitly enabled
+        return $this->belongsToMany(User::class, 'followships', 'followee_id', 'follower_id')->withTimestamps();
+    }
+
+    // get all users that one is following
+    public function followings()
+    {
+        // a single follower has many followship
+        // a followship belongs to a specific followee
+        // hence a single follower will belong to many followees
+        // belongsToMany(class, relationship's intermediate table, foreign key name of the follower, foreign key name of the followee)
+        return $this->belongsToMany(User::class, 'followships', 'follower_id', 'followee_id')->withTimestamps();
+    }
 }
