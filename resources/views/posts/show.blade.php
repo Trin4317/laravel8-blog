@@ -7,7 +7,7 @@
                         <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl">
 
                         <p class="mt-4 block text-gray-400 text-xs">
-                            Published <time>{{ $post->created_at->diffForHumans() }}</time>
+                            Published <time>{{ $post->created_at->diffForHumans() }}</time> and viewed <strong>{{ $post->total_views }}</strong> times.
                         </p>
 
                         <div class="flex items-center lg:justify-center text-sm mt-4">
