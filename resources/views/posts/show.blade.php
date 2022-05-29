@@ -18,6 +18,26 @@
                                 </h5>
                             </div>
                         </div>
+
+                        <div>
+                            @auth
+                                @unless (auth()->user()->followings->contains('id', $post->author->id))
+                                    <form method="POST" action="/profile/follow/{{ $post->author->id }}">
+                                        @csrf
+                                        <x-form.button>Follow</x-form.button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="/profile/unfollow/{{ $post->author->id }}">
+                                        @csrf
+                                        <x-form.button option="unfollow">Unfollow</x-form.button>
+                                    </form>
+                                @endif
+                            @else
+                                <p class="font-semibold text-sm mt-3">
+                                    <a href="/register" class="hover:underline">Register</a> or <a href="/login" class="hover:underline">Log in</a> to follow this author.
+                                </p>
+                            @endauth
+                        </div>
                     </div>
 
                     <div class="col-span-8">
