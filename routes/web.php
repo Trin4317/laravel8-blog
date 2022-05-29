@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
@@ -11,6 +12,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\RssFeedController;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,21 @@ Route::get('login', [SessionController::class, 'create'])->middleware('guest');
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::get('profile/follow', [FollowController::class, 'index'])->middleware('auth');
+
+// customize missing model behavior
+Route::post('profile/follow/{user:id}', [FollowController::class, 'create'])
+->middleware('auth')
+->missing(function (Request $request) {
+    return back()->with('error', 'User does not exist.');
+});
+
+Route::post('profile/unfollow/{user:id}', [FollowController::class, 'destroy'])
+->middleware('auth')
+->missing(function (Request $request) {
+    return back()->with('error', 'User does not exist.');
+});
 
 Route::post('newsletter', NewsletterController::class);
 
