@@ -5,6 +5,7 @@
         show: false
     }"
         x-show="name === activeTab"
+        x-cloak
 >
     {{ $slot }}
 </div>

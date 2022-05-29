@@ -10,6 +10,9 @@
     html {
         scroll-behavior: smooth;
     }
+    [x-cloak] {
+        display: none !important;
+    }
 </style>
 
 <body style="font-family: Open Sans, sans-serif">
