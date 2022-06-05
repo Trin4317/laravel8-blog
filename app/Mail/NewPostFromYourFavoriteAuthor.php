@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -41,7 +42,7 @@ class NewPostFromYourFavoriteAuthor extends Mailable
         return $this->markdown('emails.followings.post', [
                         'title' => $this->post->title,
                         'excerpt' => $this->post->excerpt,
-                        'author' => $this->post->author->name,
+                        'author' => User::find($this->post->user_id)->name,
                         'url' => env('APP_URL') . '/post/' . $this->post->slug,
                     ]);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\User;
 use App\Events\PostSaving;
 use App\Mail\NewPostFromYourFavoriteAuthor;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -39,7 +40,12 @@ class NotifyFollowerOfNewPost
         }
 
         // send an email to author's followers
-        $followers = $event->post->author->followers;
+
+        // Note: since Eloquent dispatchesEvents only observe changes in Post model's properties, such as `if ($event->post->isDirty('user_id'))`
+        // any non property like relationship, eg. author() will not be reflected in time when the change happens
+        // Hence, `$followers = $event->post->author->followers;` will return the follower list from old author
+
+        $followers = User::find($event->post->user_id)->followers;
         foreach($followers as $follower) {
             Mail::to($follower->email)->send(new NewPostFromYourFavoriteAuthor($event->post));
         }
