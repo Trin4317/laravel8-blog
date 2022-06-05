@@ -36,6 +36,7 @@
                             <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">Publish New Post</x-dropdown-item>
                         @endadmin
 
+                        <x-dropdown-item href="/profile/follow" :active="request()->is('profile/follow')">Followship</x-dropdown-item>
                         {{-- first declare alpine component with x-data
                             listen for click event but prevent default action, which is href="#"
                             find the logout-form and submit it --}}
