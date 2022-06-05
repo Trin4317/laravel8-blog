@@ -46,16 +46,16 @@ Route::get('profile/follow', [FollowController::class, 'index'])->middleware('au
 
 // customize missing model behavior
 Route::post('profile/follow/{user:id}', [FollowController::class, 'create'])
-->middleware('auth')
-->missing(function (Request $request) {
-    return back()->with('error', 'User does not exist.');
-});
+        ->middleware('auth')
+        ->missing(function (Request $request) {
+            return back()->with('error', 'User does not exist.');
+        });
 
 Route::post('profile/unfollow/{user:id}', [FollowController::class, 'destroy'])
-->middleware('auth')
-->missing(function (Request $request) {
-    return back()->with('error', 'User does not exist.');
-});
+        ->middleware('auth')
+        ->missing(function (Request $request) {
+            return back()->with('error', 'User does not exist.');
+        });
 
 Route::post('newsletter', NewsletterController::class);
 
