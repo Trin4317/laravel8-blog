@@ -10,7 +10,7 @@ class FollowController extends Controller
     // display list of followers and followings of current logging in user
     public function index()
     {
-        return view('users.index', [
+        return view('users.follow', [
             'followers' => auth()->user()->followers,
             'followings' => auth()->user()->followings
         ]);
