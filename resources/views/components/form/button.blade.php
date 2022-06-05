@@ -7,6 +7,9 @@
     if ($attributes['option'] === 'draft') {
         $classes .= " bg-yellow-500 hover:bg-yellow-600";
     }
+    if ($attributes['option'] === 'unfollow') {
+        $classes .= " bg-red-500 hover:bg-red-600";
+    }
 @endphp
 
 <x-form.field>
