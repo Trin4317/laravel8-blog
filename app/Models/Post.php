@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\PostSaving;
 
 class Post extends Model
 {
@@ -70,4 +71,10 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    // Eloquent model can dispatch event when any change happens during its lifecycle
+    // 'saving' means event is dispatched before any changes to Post model are persisted
+    protected $dispatchesEvents = [
+        'saving' => PostSaving::class,
+    ];
 }
