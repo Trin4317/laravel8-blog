@@ -1,7 +1,7 @@
 @component('mail::message')
 # New post from your favorite author {{ $author }}!
 
-## {{ $title }}
+## <div align="center">{{ $title }}</div>
 > {{ $excerpt }}
 
 @component('mail::button', ['url' => $url])

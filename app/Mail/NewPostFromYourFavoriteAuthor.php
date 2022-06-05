@@ -38,8 +38,7 @@ class NewPostFromYourFavoriteAuthor extends Mailable
      */
     public function build()
     {
-        return $this->from('blog@laravel.com', 'Laravel Blog')
-                    ->markdown('emails.followings.post', [
+        return $this->markdown('emails.followings.post', [
                         'title' => $this->post->title,
                         'excerpt' => $this->post->excerpt,
                         'author' => $this->post->author->name,
