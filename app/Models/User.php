@@ -89,4 +89,12 @@ class User extends Authenticatable
         // belongsToMany(class, relationship's intermediate table, foreign key name of the follower, foreign key name of the followee)
         return $this->belongsToMany(User::class, 'followships', 'follower_id', 'followee_id')->withTimestamps();
     }
+
+    // get all the posts that user bookmarked
+    public function bookmarks()
+    {
+        // a single user has many bookmarks while a bookmark belongs to a specific post
+        // hence a single user will belong to many posts
+        return $this->belongsToMany(Post::class, 'bookmarks', 'user_id', 'post_id')->withTimestamps();
+    }
 }
