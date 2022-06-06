@@ -38,6 +38,26 @@
                                 </p>
                             @endauth
                         </div>
+
+                        <div>
+                            @auth
+                                @unless (auth()->user()->bookmarks->contains('id', $post->id))
+                                    <form method="POST" action="/profile/bookmark/{{ $post->id }}">
+                                        @csrf
+                                        <x-form.button>Bookmark</x-form.button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="/profile/unbookmark/{{ $post->id }}">
+                                        @csrf
+                                        <x-form.button option="unfollow">Unbookmark</x-form.button>
+                                    </form>
+                                @endif
+                            @else
+                                <p class="font-semibold text-sm mt-3">
+                                    <a href="/register" class="hover:underline">Register</a> or <a href="/login" class="hover:underline">Log in</a> to bookmark this post.
+                                </p>
+                            @endauth
+                        </div>
                     </div>
 
                     <div class="col-span-8">
