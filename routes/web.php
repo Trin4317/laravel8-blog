@@ -13,6 +13,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\RssFeedController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\BookmarkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,21 @@ Route::post('profile/unfollow/{user:id}', [FollowController::class, 'destroy'])
         ->middleware('auth')
         ->missing(function (Request $request) {
             return back()->with('error', 'User does not exist.');
+        });
+
+Route::get('profile/bookmark', [BookmarkController::class, 'index'])->middleware('auth');
+
+// customize missing model behavior
+Route::post('profile/bookmark/{post:id}', [BookmarkController::class, 'create'])
+        ->middleware('auth')
+        ->missing(function (Request $request) {
+            return back()->with('error', 'Post does not exist.');
+        });
+
+Route::post('profile/unbookmark/{post:id}', [BookmarkController::class, 'destroy'])
+        ->middleware('auth')
+        ->missing(function (Request $request) {
+            return back()->with('error', 'Post does not exist.');
         });
 
 Route::post('newsletter', NewsletterController::class);
