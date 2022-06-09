@@ -36,6 +36,7 @@
                             <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">Publish New Post</x-dropdown-item>
                         @endadmin
 
+                        <x-dropdown-item href="/profile/" :active="request()->is('profile')">Profile</x-dropdown-item>
                         <x-dropdown-item href="/profile/follow" :active="request()->is('profile/follow')">Followship</x-dropdown-item>
                         <x-dropdown-item href="/profile/bookmark" :active="request()->is('profile/bookmark')">Bookmarks</x-dropdown-item>
                         {{-- first declare alpine component with x-data
