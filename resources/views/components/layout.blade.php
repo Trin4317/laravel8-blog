@@ -37,6 +37,7 @@
                         @endadmin
 
                         <x-dropdown-item href="/profile/follow" :active="request()->is('profile/follow')">Followship</x-dropdown-item>
+                        <x-dropdown-item href="/profile/bookmark" :active="request()->is('profile/bookmark')">Bookmarks</x-dropdown-item>
                         {{-- first declare alpine component with x-data
                             listen for click event but prevent default action, which is href="#"
                             find the logout-form and submit it --}}
