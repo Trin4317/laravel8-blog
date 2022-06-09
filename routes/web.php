@@ -12,6 +12,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\RssFeedController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\BookmarkController;
 
@@ -42,6 +43,10 @@ Route::get('login', [SessionController::class, 'create'])->middleware('guest')->
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::get('profile/', [ProfileController::class, 'index'])->middleware('auth');
+
+Route::patch('profile/update', [ProfileController::class, 'update'])->middleware('auth');
 
 Route::get('profile/follow', [FollowController::class, 'index'])->middleware('auth');
 
