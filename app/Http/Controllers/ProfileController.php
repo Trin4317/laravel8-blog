@@ -29,8 +29,8 @@ class ProfileController extends Controller
         if (isset($attributes['avatar'])) {
             $attributes['avatar'] = request()->file('avatar')->store('avatars');
 
-            // remove the old avatar from storage
-            if (Storage::exists(auth()->user()->avatar)) {
+            // remove old avatar from storage if the user has one
+            if (!is_null(auth()->user()->avatar) && Storage::exists(auth()->user()->avatar)) {
                 Storage::delete(auth()->user()->avatar);
             }
         }
