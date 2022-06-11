@@ -16,7 +16,7 @@
                         <x-form.input name="avatar" type="file" :value="old('avatar', $user->avatar)"></x-form.input>
                     </div>
 
-                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Your avatar" class="rounded-xl ml-6" width="100">
+                    <img src="{{ isset($user->avatar) ? asset('storage/' . $user->avatar) : asset('images/lary-avatar.svg') }}" alt="Your avatar" class="rounded-xl ml-6 w-20 h-20">
                 </div>
 
                 <div class="flex mx-36 justify-around">
