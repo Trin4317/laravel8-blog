@@ -11,6 +11,10 @@
 
             <ul>
                 <li>
+                    <a href="/profile/" class="{{ request()->is('profile') ? 'text-blue-500' : '' }}">Profile Dashboard</a>
+                </li>
+
+                <li>
                     <a href="/profile/follow" class="{{ request()->is('profile/follow') ? 'text-blue-500' : '' }}">Followship</a>
                 </li>
 
