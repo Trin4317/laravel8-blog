@@ -35,6 +35,11 @@ class RegisterController extends Controller
         // which means only after a Welcome mail is sent to the user's email address
         // then we log the user in and redirect back to homepage.
         // As a result, user has to wait until the event is handled completely.
+
+        // Note 3: After enable Queue on event listener,
+        // user now will be logged in and redirected back immediately
+        // after the event is successfully put on the queue.
+        // It's up to the queue worker to handle the job after.
         event(new UserCreated($user));
 
         // log the user in
