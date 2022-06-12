@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\PostSaving;
 use App\Listeners\NotifyFollowerOfNewPost;
+use App\Events\UserCreated;
+use App\Listeners\SendRegistrationEmail;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PostSaving::class => [
             NotifyFollowerOfNewPost::class,
+        ],
+        UserCreated::class => [
+            SendRegistrationEmail::class,
         ],
     ];
 
