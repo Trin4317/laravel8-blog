@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('followships', function (Blueprint $table) {
-            $table->id();
+            $table->primary(['followee_id', 'follower_id']); // composite primary key to prevent duplicate entry
             $table->foreignId('followee_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('follower_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
