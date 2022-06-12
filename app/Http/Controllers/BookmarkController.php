@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Models\Post;
 
 class BookmarkController extends Controller
@@ -18,7 +19,13 @@ class BookmarkController extends Controller
     // bookmark a specific post based on its id
     public function create(Post $post)
     {
-        auth()->user()->bookmarks()->attach($post->id);
+        try {
+            auth()->user()->bookmarks()->attach($post->id);
+        }
+        catch (QueryException $e) {
+            // if the relationship already exists
+            return back()->with('error', 'Already bookmarked this post!');
+        }
 
         return back()->with('success', 'Post Bookmarked!');
     }

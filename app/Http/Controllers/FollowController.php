@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Models\User;
 
 class FollowController extends Controller
@@ -19,7 +20,13 @@ class FollowController extends Controller
     // follow a specific user based on his id
     public function create(User $user)
     {
-        auth()->user()->followings()->attach($user->id);
+        try {
+            auth()->user()->followings()->attach($user->id);
+        }
+        catch (QueryException $e) {
+            // if the relationship already exists
+            return back()->with('error', 'Already followed this user!');
+        }
 
         return back()->with('success', 'User Followed!');
     }
@@ -27,6 +34,7 @@ class FollowController extends Controller
     // unfollow a specific user based on his id
     public function destroy(User $user)
     {
+        // no exception is thrown when we detach a non-exist relationship so no need to catch
         auth()->user()->followings()->detach($user->id);
 
         return back()->with('success', 'User Unfollowed!');
