@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bookmarks', function (Blueprint $table) {
-            $table->id();
+            $table->primary(['user_id', 'post_id']); // composite primary key to prevent duplicate entry
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
             $table->timestamps();
